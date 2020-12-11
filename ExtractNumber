@@ -1,1 +1,20 @@
+Function ExtractValue(strValue As String) As Double
 
+    Dim strPattern As String
+    Dim regexObj As New RegExp
+    Dim strReplace As String
+    Dim matches As Object
+    'Dim match As Variant
+    
+    strPattern = "([0-9]{1,}(\.|,)?[0-9]{1,})"
+    'strPattern = "([0-9]{1,}(\.|,)?[0-9]{1,})"
+    With regexObj
+        .Global = False
+        .MultiLine = False
+        .Pattern = strPattern
+    End With
+    Set matches = regexObj.Execute(strValue)
+    
+    ExtractValue = CDbl(Replace(matches(0), ",", "."))
+    'Debug.Print ExtractValue
+End Function
